@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108695176-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-108695176-1');
+    </script>
+
+    <title>Destiny 2 Stats Explorer</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script src="js/D2API.js"></script>
+    <script src="js/faves.js"></script>
+    <script src="js/index.js"></script>
+    <!-- The discord.io client file -->
+    <script src="js/BNetAuth.js"></script>
+    <script src="js/DiscordAuth.js"></script>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108695176-1');
+    </script>
+</head>
+
+<body>
+    <div id="titleContainer">
+        <h2 id="title" class="display-4">Destiny 2 LFG</h2>
+        <p id="subline" class="lead">By Javano</p>
+    </div>
+    <div id="userBar">
+        <a id="authLink_Discord" style="display:none">
+            <span class="btn btn-primary submitBtn">Login With Discord</span>
+        </a>
+        <a id="authLink_Bnet" style="display:none">
+            <span class="btn btn-primary submitBtn">Login With Bungie.net</span>
+        </a>
+    </div>
+    <div id="favesBar"></div>
+
+    <div id="searchPanel" class="card-deck row parentPanel">
+        <div id="" class="card panel col">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="lfg-tab" data-toggle="tab" href="#lfg" role="tab" aria-controls="lfg" aria-selected="true">LFG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="lfm-tab" data-toggle="tab" href="#lfm" role="tab" aria-controls="lfm" aria-selected="false">LFM</a>
+                </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="lfg" role="tabpanel" aria-labelledby="lfg-tab">
+                    <div id="panelLFG" class="card panel col">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="btnGrpPlatform1">Platform</label>
+                                    <div id="btnGrpPlatform1" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-secondary ">
+                                            <input type="radio" name="options" id="btnPC" autocomplete="off" checked="" /> PC
+                                        </label>
+                                        <label class="btn btn-secondary">
+                                            <input type="radio" name="options" id="btnPS4" autocomplete="off" /> PS4
+                                        </label>
+                                        <label class="btn btn-secondary">
+                                            <input type="radio" name="options" id="btnXB1" autocomplete="off" /> Xbox
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label for="txtUsername">Username</label>
+                                    <input id="txtUsername" type="text" name="Username" class="form-control" placeholder="Username">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="ddlRegion">Region</label>
+                                    <select id="ddlRegion" class="form-control">
+                                        <option selected>Region</option>
+                                        <option>Any</option>
+                                        <option>North America</option>
+                                        <option>South America</option>
+                                        <option>Europe</option>
+                                        <option>Asia</option>
+                                        <option>Oceania</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="ddlLanguage">Language</label>
+                                    <select id="ddlLanguage" class="form-control ">
+                                        <option selected>Language</option>
+                                        <option>English</option>
+                                        <option>French</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <label for="ddlActivity">Activity</label>
+                                    <select id="ddlActivity" class="form-control ">
+                                        <option selected>Activity</option>
+                                        <option>Leviathan</option>
+                                        <option>Leviathan - Normal</option>
+                                        <option>Leviathan - Prestige</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label for="txtLight">Power</label>
+                                    <input id="txtLight" type="text" name="Power" class="form-control" placeholder="Power">
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="txtDescription">Description</label>
+                                    <textarea id="txtDescription" type="text" name="Description" class="form-control  col-md-12" placeholder="Description"></textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div id="ChooseUserPrompt" class="alert alert-info" style="display:none"></div>
+                            <div id="UserNameTxtErr" class="alert alert-danger alert-dismissable" style="display:none"></div>
+                            <p></p>
+                            <a id="UserSubmitBtn" class="btn btn-success btn-lg submitBtn" href="#!" role="button">Search</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="lfm" role="tabpanel" aria-labelledby="lfm-tab">
+                    <div id="panelLFM" class="card panel col">
+                        <div class="card-block">
+                            <p class="card-text">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="btnGrpPlatform2">Platform</label>
+                                        <div id="btnGrpPlatform2" class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-secondary active">
+                                                <input type="radio" name="options" id="btnPC" autocomplete="off" checked=""> PC
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" id="btnPS4" autocomplete="off"> PS4
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" id="btnXB1" autocomplete="off"> Xbox
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <label for="txtUsername">Username</label>
+                                        <input id="txtUsername" type="text" name="Username" class="form-control" placeholder="Username">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="ddlRegion">Region</label>
+                                        <select id="ddlRegion" class="form-control">
+                                            <option selected>Region</option>
+                                            <option>Any</option>
+                                            <option>North America</option>
+                                            <option>South America</option>
+                                            <option>Europe</option>
+                                            <option>Asia</option>
+                                            <option>Oceania</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="ddlLanguage">Language</label>
+                                        <select id="ddlLanguage" class="form-control ">
+                                            <option selected>Language</option>
+                                            <option>English</option>
+                                            <option>French</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label for="ddlActivity">Activity</label>
+                                        <select id="ddlActivity" class="form-control ">
+                                            <option selected>Activity</option>
+                                            <option>Leviathan</option>
+                                            <option>Leviathan - Normal</option>
+                                            <option>Leviathan - Prestige</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <label for="txtUsername">Players</label>
+                                        <input id="txtPlayers" type="text" name="Players" class="form-control" placeholder="#">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="txtLight">Power</label>
+                                        <input id="txtLight" type="text" name="Power" class="form-control" placeholder="Power">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="txtDescription">Description</label>
+                                            <textarea id="txtDescription" type="text" name="Description" class="form-control  col-md-12" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1" style="  display: table; height: 100px;  width: 100%; text-align: center;">
+                                        <div class="form-group" style=" display: table-cell;vertical-align: middle;">
+                                            <label class="custom-control custom-checkbox ">
+                                                <span class="custom-control-description">Discord?</span>
+                                                <input id="lfm-chkDiscord" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="lfm-discord" class="col-md-2" style="display:none; ">
+                                        <label for="txtDiscord">Invite URL</label>
+                                        <input id="txtDiscord" type="text" name="Discord" class="form-control  col-md-12" placeholder="https://discord.gg/A1b2C3d"
+                                        />
+                                    </div>
+                                </div>
+
+
+
+                            </p>
+                            <div id="ChooseUserPrompt" class="alert alert-info" style="display:none"></div>
+                            <div id="UserNameTxtErr" class="alert alert-danger alert-dismissable" style="display:none"></div>
+                            <p></p>
+                            <a id="UserSubmitBtn" class="btn btn-success btn-lg submitBtn" href="#!" role="button">Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="searchResults" class="parentPanel row">
+        <div id="userSearchResults" class="panel col" style="display:none">
+        </div>
+        <div id="clanSearchResults" class="panel col" style="display:none">
+        </div>
+    </div>
+
+
+    <p id="txtVersion" style="display:none"></p>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="modalError">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title error-title">Modal Heading</h4>
+                    <button type="button" class="close error-button" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body error-msg">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/lfg.js"></script>
+<script src="js/interface.js"></script>
+
+
+</html>

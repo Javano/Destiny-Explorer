@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108695176-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-108695176-1');
+    </script>
+
+    <title>ST Statue Puzzle Solver</title>
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+    <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+
+        <!-- Page Content Holder -->
+        <div id="content">
+            <button type="button" id="sidebarCollapse" class="btn btn-outline-success navbar-btn" style="display:none;position: fixed;left: 15px;top: 35px;">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div id="topBar">
+                <div id="titleContainer" style="flex:1;">
+                    <h2 id="title" class="display-4">ST Statue Puzzle Solver<p id="versionNum" class="lead" data-toggle="tooltip" data-placement="bottom"></p></h2>
+                    
+                </div>
+
+        </div>
+        <div id="loadingPanel" style="position: absolute;text-align: center;width: 30vw;margin-left: calc(35vw - 290px);margin-top: calc(20vh - 67px);vertical-align: middle;">
+            <img src="img/Eclipse.svg" style="width:100%" />
+        </div>
+        <div id="loadedContentPanel" style="display:none">
+            <div id="searchPanel" class="card-deck row parentPanel">
+                <div id="userSearchPanel" class="card panel col contentContainer">
+                        <div class="texturedPanel glass"></div>
+
+                        <H3>Puzzle</H3>
+                    <div class="card-block">
+                       <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label id="btnWall1" class="btn btn-outline-success btnWall active" data-wall-num="1">
+                          <input name="options" id="option1" autocomplete="off" checked="" type="radio"> Wall 1
+                        </label>
+                        <label id="btnWall2" class="btn btn-outline-success btnWall" data-wall-num="2">
+                          <input name="options" id="option2" autocomplete="off" type="radio"> Wall 2
+                        </label>
+                        <label id="btnWall3" class="btn btn-outline-success btnWall" data-wall-num="3">
+                          <input name="options" id="option3" autocomplete="off" type="radio"> Wall 3
+                        </label>
+                        <label id="btnWall4" class="btn btn-outline-success btnWall" data-wall-num="4">
+                          <input name="options" id="option3" autocomplete="off" type="radio"> Wall 4
+                        </label>
+                      </div>
+                      <br><br>
+                        <H3>Statue Positions</H3>
+                        <a id="btn0" class="btn btn-outline-success btn-lg numBtn" href="#!" role="button" data-id="0" data-offset="2" data-val="0">↑</a>
+                        <a id="btn1" class="btn btn-outline-success btn-lg numBtn" href="#!" role="button" data-id="1" data-offset="1" data-val="0">↑</a>
+                        <a id="btn2" class="btn btn-outline-success btn-lg numBtn" href="#!" role="button"  data-id="2" data-offset="1" data-val="0">↑</a>
+                        <a id="btn3" class="btn btn-outline-success btn-lg numBtn" href="#!" role="button"  data-id="3" data-offset="2" data-val="0" style="display:none">↑</a>
+
+                        <br>
+                        <br>
+                        <a id="solveBtn" class="btn btn-outline-success btn-lg submitBtn" href="#!" role="button" onclick="solve(1);">Solve!</a>
+                    </div>
+                </div>
+                <div id="clanSearchPanel" class="card panel col contentContainer">
+                        <div class="texturedPanel glass"></div>
+                    <div class="card-block">
+                        <h3 class="card-title">Solution:</h3>
+                        <div id="outputTxt"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="searchResults" class="parentPanel row">
+                <div id="userSearchResults" class="panel col" style="display:none">
+                </div>
+                <div id="clanSearchResults" class="panel col" style="display:none">
+                </div>
+            </div>
+
+
+            <p id="txtVersion" style="display:none"></p>
+
+            <div class="modal fade" id="modalError">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title error-title">Modal Heading</h4>
+                            <button type="button" class="close error-button" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body error-msg">
+                            Modal body..
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="modalXur">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title error-title">Xur is here!</h4>
+                            <button type="button" class="close error-button" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body error-msg">
+                            Modal body..
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary dismissXur" data-dismiss="modal">Dismiss For This Week</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="modal fade" id="modalPendingMembers">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title error-title">Pending Membership Requests</h4>
+                            <button type="button" class="close error-button" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body msg">
+                            Modal body..
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary approveAll" data-dismiss="modal">Approve All</button>
+                            <button type="button" class="btn btn-secondary denyAll" data-dismiss="modal">Deny All</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+</body>
+
+<script src="https://unpkg.com/popper.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+
+<script type="text/javascript" src="js/calc.js"></script>
+
+</html>

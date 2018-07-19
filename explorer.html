@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108695176-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-108695176-1');
+    </script>
+
+    <title>Destiny 2 Data Explorer</title>
+
+    <script type="text/javascript" src="js/zip/WebContent/zip.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kripken.github.io/sql.js/js/sql.js"></script>
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script src="js/hashdb.js"></script>
+    <script src="js/geardb.js"></script>
+    <script src="js/D2API.js"></script>
+    <script src="js/faves.js"></script>
+    <script src="js/BNetAuth.js"></script>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108695176-1');
+    </script>
+</head>
+
+<body>
+    <div id="titleContainer">
+        <h2 id="title" class="display-4">Destiny 2 Data Explorer</h2>
+        <p id="subline" class="lead">By Javano</p>
+    </div>
+
+    <div id="dateDiv" class="text-muted"></div>
+    <div id="searchPanel" class="card-deck row parentPanel">
+        <div id="userSearchPanel" class="card panel col">
+            <div class="card-block">
+                <h3 class="card-title">Data Search</h3>
+                <p class="card-text">
+                    <input id="UserNameTxt" type="text" name="Username" class="form-control mr-sm-2" placeholder="Word/Phrase" />
+
+                    <div id="ChooseUserPrompt" class="alert alert-info" style="display:none"></div>
+                    <div id="UserNameTxtErr" class="alert alert-danger alert-dismissable" style="display:none"></div>
+                </p>
+                <a id="UserSubmitBtn" class="btn btn-success btn-lg submitBtn" href="#!" role="button">Search</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="" class="card-deck row parentPanel">
+    <nav id="navTables" class="bg-light sidebar"  style="margin-top: 35px; margin-left: 10px; text-align: left; display: inline-block;width: 300px">
+        
+            <div style="text-align:left; padding-left:15px; padding-top:15px;"><h3>Tables</h3></div>
+        <ul class="nav nav-pills flex-column">
+
+
+        </ul>
+      </nav>
+    <div id="loreResults" class="parentPanel row " style="padding-top: 15px; display: inline-block;width: calc(100vw - 315px);">
+            <div style="text-align:left; padding-left:15px; padding-top:15px; display:none"><h3>Items</h3></div>
+            
+        <div id="loreDiv" class="panel col card-columns">
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="js/explorer.js"></script>
+
+
+</html>
